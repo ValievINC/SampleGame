@@ -6,43 +6,43 @@ using System.Threading.Tasks;
 
 namespace GreedyAlgs
 {
-    //public class UnionFind
-    //{
-    //    private readonly Dictionary<string, string> _parent = new Dictionary<string, string>();
-    //    private readonly Dictionary<string, int> _rank = new Dictionary<string, int>();
+    public class UnionFind
+    {
+        private readonly Dictionary<string, string> _parent = new Dictionary<string, string>();
+        private readonly Dictionary<string, int> _rank = new Dictionary<string, int>();
 
-    //    public void Add(string city)
-    //    {
-    //        _parent[city] = city;
-    //        _rank[city] = 0;
-    //    }
+        public void Add(string city)
+        {
+            _parent[city] = city;
+            _rank[city] = 0;
+        }
 
-    //    public string Find(string city)
-    //    {
-    //        if (_parent[city] != city)
-    //            _parent[city] = Find(_parent[city]);
-    //        return _parent[city];
-    //    }
+        public string Find(string city)
+        {
+            if (_parent[city] != city)
+                _parent[city] = Find(_parent[city]);
+            return _parent[city];
+        }
 
-    //    public bool Union(string a, string b)
-    //    {
-    //        string rootA = Find(a);
-    //        string rootB = Find(b);
+        public bool Union(string a, string b)
+        {
+            string rootA = Find(a);
+            string rootB = Find(b);
 
-    //        if (rootA == rootB)
-    //            return false;
+            if (rootA == rootB)
+                return false;
 
-    //        if (_rank[rootA] < _rank[rootB])
-    //            (rootA, rootB) = (rootB, rootA);
+            if (_rank[rootA] < _rank[rootB])
+                (rootA, rootB) = (rootB, rootA);
 
-    //        _parent[rootB] = rootA;
+            _parent[rootB] = rootA;
 
-    //        if (_rank[rootA] == _rank[rootB])
-    //            _rank[rootA]++;
+            if (_rank[rootA] == _rank[rootB])
+                _rank[rootA]++;
 
-    //        return true;
-    //    }
-    //}
+            return true;
+        }
+    }
 
     public class DijkstraData
     {
@@ -143,33 +143,33 @@ namespace GreedyAlgs
             return bestCity;
         }
 
-        //static List<Edge> FindMST(List<Edge> edges, List<string> cities)
-        //{
-        //    var uf = new UnionFind();
-        //    var mst = new List<Edge>();
+        static List<Edge> FindMST(List<Edge> edges, List<string> cities)
+        {
+            var uf = new UnionFind();
+            var mst = new List<Edge>();
 
-        //    foreach (var city in cities)
-        //        uf.Add(city);
+            foreach (var city in cities)
+                uf.Add(city);
 
-        //    edges.Sort();
+            edges.Sort();
 
-        //    foreach (var edge in edges)
-        //    {
-        //        if (uf.Union(edge.From, edge.To))
-        //        {
-        //            mst.Add(edge);
-        //            Console.WriteLine($"Добавляем: {edge.From} - {edge.To}, {edge.Weight} км");
+            foreach (var edge in edges)
+            {
+                if (uf.Union(edge.From, edge.To))
+                {
+                    mst.Add(edge);
+                    Console.WriteLine($"Добавляем: {edge.From} - {edge.To}, {edge.Weight} км");
 
-        //            if (mst.Count == cities.Count - 1)
-        //                break;
-        //        }
-        //        else
-        //        {
-        //            Console.WriteLine($"Пропускаем: {edge.From} - {edge.To}");
-        //        }
-        //    }
+                    if (mst.Count == cities.Count - 1)
+                        break;
+                }
+                else
+                {
+                    Console.WriteLine($"Пропускаем: {edge.From} - {edge.To}");
+                }
+            }
 
-        //    return mst;
-        //}
+            return mst;
+        }
     }
 }
